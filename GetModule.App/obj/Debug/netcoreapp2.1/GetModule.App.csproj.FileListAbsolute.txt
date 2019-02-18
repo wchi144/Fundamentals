@@ -9,3 +9,14 @@ D:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.pdb
 D:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.csprojAssemblyReference.cache
 D:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.dll
 D:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.pdb
+C:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.deps.json
+C:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.runtimeconfig.json
+C:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.runtimeconfig.dev.json
+C:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.dll
+C:\Dev\GetModule.App\GetModule.App\bin\Debug\netcoreapp2.1\GetModule.App.pdb
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.csprojAssemblyReference.cache
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.csproj.CoreCompileInputs.cache
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.AssemblyInfoInputs.cache
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.AssemblyInfo.cs
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.dll
+C:\Dev\GetModule.App\GetModule.App\obj\Debug\netcoreapp2.1\GetModule.App.pdb

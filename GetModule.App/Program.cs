@@ -13,6 +13,12 @@ namespace GetModules
             //printSomeTuple("linda", 26);
             var root = Assembly.GetExecutingAssembly().Location;
             root = Path.GetDirectoryName(root);
+            root = Directory.GetFiles(root, "*.deps.json")[0];
+
+            using (StreamReader sr = new StreamReader(root))
+            {
+                var json = sr.ReadToEnd();
+            }
 
             if (!Directory.Exists(root))
             {
