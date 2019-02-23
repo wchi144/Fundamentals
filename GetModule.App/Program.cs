@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Diagnostics;
+using System.Linq;
+using Ninject;
 
 namespace GetModules
 {
@@ -20,7 +22,9 @@ namespace GetModules
             }
 
             var list = GetAllAssemblies(root);
-            printAllAssemblies(list);
+            //printAllAssemblies(list);
+            getModules(list);
+            getModules(list, IModule, NinjectModule);
 
             
         }
@@ -51,5 +55,42 @@ namespace GetModules
                 Debug.WriteLine(dll);
             }
         }
+
+        static private IEnumerable<Type> getModules(IEnumerable<Assembly> assemblies, params Type[] args)
+        {
+            var moduleInstances = new List<Type>();
+
+            foreach (var assembly in assemblies)
+            {
+                // from those types get the type where interfact is IModule
+                // create instance of those types
+                moduleInstances.Concat(
+                    assembly.GetTypes().Where(t => args.Contains(t.BaseType))
+                    .Select(t => Activator.CreateInstance(t))
+                );
+            }
+
+            return moduleInstances;
+        }
+
+        static private IEnumerable<Type> getModules(IEnumerable<Assembly> assemblies)
+        {
+            var moduleInstances = new List<Type>();
+
+            foreach (var assembly in assemblies)
+            {
+                // from those types get the type where interfact is IModule
+                // create instance of those types
+                moduleInstances.Concat(
+                    assembly.GetTypes().Where(t => t.BaseType == typeof(NinjectModule))
+                    .Select(t => Activator.CreateInstance(t))
+                );
+            }
+
+            return moduleInstances;
+        }
+
+        private interface IModule { };
+        private class NinjectModule { };
     }
 }
