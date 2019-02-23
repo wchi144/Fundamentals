@@ -2,9 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Diagnostics;
 using System.Linq;
-using Ninject;
+using GetModule.App;
 
 namespace GetModules
 {
@@ -12,7 +11,6 @@ namespace GetModules
     {
         static void Main(string[] args)
         {
-            //printSomeTuple("linda", 26);
             var root = Assembly.GetExecutingAssembly().Location;
             root = Path.GetDirectoryName(root);
 
@@ -21,21 +19,16 @@ namespace GetModules
                 throw new FileNotFoundException($"folder {root} does not exisit");
             }
 
-            var list = GetAllAssemblies(root);
-            //printAllAssemblies(list);
-            getModules(list);
-            getModules(list, IModule, NinjectModule);
+            var assemblies = GetAllAssemblies(root);
+            Console.WriteLine("Assemblies:");
+            Util.PrintList(assemblies);
 
-            
+            var modules = GetModules(assemblies, typeof(IModule), typeof(NinjectModule));
+            Console.WriteLine("Modules:");
+            Util.PrintList(modules);
         }
 
-        static void printSomeTuple(string name, int age)
-        {
-            var subjectNameAndAge = (Name: name, Age: age);
-            Console.WriteLine($"{subjectNameAndAge.Name} is {subjectNameAndAge.Age} years old.");
-        }
-
-        static IList<Assembly> GetAllAssemblies(string path)
+        static IEnumerable<Assembly> GetAllAssemblies(string path)
         {
             var assemblies = new List<Assembly>();
 
@@ -47,42 +40,14 @@ namespace GetModules
             return assemblies;
         }
 
-        static void printAllAssemblies(IList<Assembly> assemblies)
-        {
-
-            foreach (var dll in assemblies)
-            {
-                Debug.WriteLine(dll);
-            }
-        }
-
-        static private IEnumerable<Type> getModules(IEnumerable<Assembly> assemblies, params Type[] args)
+        static private IEnumerable<Type> GetModules(IEnumerable<Assembly> assemblies, params Type[] types)
         {
             var moduleInstances = new List<Type>();
 
             foreach (var assembly in assemblies)
             {
-                // from those types get the type where interfact is IModule
-                // create instance of those types
                 moduleInstances.Concat(
-                    assembly.GetTypes().Where(t => args.Contains(t.BaseType))
-                    .Select(t => Activator.CreateInstance(t))
-                );
-            }
-
-            return moduleInstances;
-        }
-
-        static private IEnumerable<Type> getModules(IEnumerable<Assembly> assemblies)
-        {
-            var moduleInstances = new List<Type>();
-
-            foreach (var assembly in assemblies)
-            {
-                // from those types get the type where interfact is IModule
-                // create instance of those types
-                moduleInstances.Concat(
-                    assembly.GetTypes().Where(t => t.BaseType == typeof(NinjectModule))
+                    assembly.GetTypes().Where(t => types.Contains(t.BaseType))
                     .Select(t => Activator.CreateInstance(t))
                 );
             }
