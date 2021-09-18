@@ -10,6 +10,7 @@ namespace GetModule.App
             foreach (var item in list)
             {
                 Debug.WriteLine(item);
+                Debug.WriteLine(item);
             }
         }
     }
